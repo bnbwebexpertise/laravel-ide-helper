@@ -489,9 +489,14 @@ class ModelsCommand extends Command
             return;
         }
 
+        $ignoredProperties = array_values($this->laravel['config']->get('ide-helper.ignored_models_properties.' . get_class($model), []));
+
         $this->setForeignKeys($schema, $table);
         foreach ($columns as $column) {
             $name = $column->getName();
+            if(in_array($name, $ignoredProperties)){
+                continue;
+            }
             if (in_array($name, $model->getDates())) {
                 $type = $this->dateClass;
             } else {
@@ -816,6 +821,13 @@ class ModelsCommand extends Command
         }
     }
 
+    public function unsetProperty($name)
+    {
+        unset($this->properties[$name]);
+
+        $this->unsetMethod(Str::camel('where_' . $name));
+    }
+
     public function setMethod($name, $type = '', $arguments = [], $comment = '')
     {
         $methods = array_change_key_case($this->methods, CASE_LOWER);
@@ -830,7 +842,7 @@ class ModelsCommand extends Command
 
     public function unsetMethod($name)
     {
-        unset($this->methods[strtolower($name)]);
+        unset($this->methods[$name]);
     }
 
     public function getMethodType(Model $model, string $classType)

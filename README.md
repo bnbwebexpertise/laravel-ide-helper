@@ -212,6 +212,16 @@ Or can be ignored by setting the `ignored_models` config
 ],
 ```
 
+#### Ignore Models Properties
+
+Models properties can be ignored by setting the `ignored_models_properties` config
+
+```php
+'ignored_models_properties' => [
+    App\Post::class => [ 'hash' ],
+],
+```
+
 #### Magic `where*` methods
 
 Eloquent allows calling `where<Attribute>` on your models, e.g. `Post::whereTitle(…)` and automatically translates this to e.g. `Post::where('title', '=', '…')`.
@@ -301,6 +311,7 @@ class MyCustomHook implements ModelHookInterface
             return;
         }
 
+        $command->unsetProperty('hash');
         $command->setProperty('custom', 'string', true, false, 'My custom property');
         $command->unsetMethod('method');
         $command->setMethod('method', $command->getMethodType($model, '\Some\Class'), ['$param']);

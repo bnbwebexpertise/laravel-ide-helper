@@ -7,9 +7,12 @@ namespace Barryvdh\LaravelIdeHelper\Tests\Console\ModelsCommand\Ignored;
 use Barryvdh\LaravelIdeHelper\Console\ModelsCommand;
 use Barryvdh\LaravelIdeHelper\Tests\Console\ModelsCommand\AbstractModelsCommand;
 use Barryvdh\LaravelIdeHelper\Tests\Console\ModelsCommand\Ignored\Models\Ignored;
+use Barryvdh\LaravelIdeHelper\Tests\Console\ModelsCommand\Ignored\Models\NotIgnored;
+use Barryvdh\LaravelIdeHelper\Tests\Console\ModelsCommand\Ignored\Models\Simple;
 
 class Test extends AbstractModelsCommand
 {
+
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
@@ -17,7 +20,12 @@ class Test extends AbstractModelsCommand
         $app['config']->set('ide-helper.ignored_models', [
             Ignored::class,
         ]);
+
+        $app['config']->set('ide-helper.ignored_models_properties', [
+            NotIgnored::class => ['ignored'],
+        ]);
     }
+
 
     public function test(): void
     {

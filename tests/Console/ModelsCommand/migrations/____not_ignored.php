@@ -6,13 +6,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SimpleTable extends Migration
+class NotIgnored extends Migration
 {
     public function up(): void
     {
-        Schema::create('simples', function (Blueprint $table) {
+        Schema::create('not_ignoreds', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('unset');
+            $table->string('ignored');
         });
     }
 }

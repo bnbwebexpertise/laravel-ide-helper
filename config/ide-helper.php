@@ -157,6 +157,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Models properties to ignore
+    |--------------------------------------------------------------------------
+    |
+    | Define which properties should be ignored per model. The key of the array
+    | is the canonical class name of the model and the values the properties
+    | name, e.g. `Model::class => [ 'ignored_column' ]`
+    |
+    */
+
+    'ignored_models_properties' => [
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Models hooks
     |--------------------------------------------------------------------------
     |
